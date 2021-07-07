@@ -9,6 +9,6 @@ interface IGitHubApiService {
     fun isWork(): String
 }
 
-class GitHubApiService @Inject constructor(): IGitHubApiService {
+class GitHubApiService @Inject constructor(private val contextApi: IApi): IGitHubApiService {
     override fun isWork(): String = "isWork"
 }

@@ -3,8 +3,10 @@ package ru.appdevelopers.githubclient.di
 import android.content.Context
 import android.content.SharedPreferences
 import ru.appdevelopers.githubclient.services.GitHubApiService
+import ru.appdevelopers.githubclient.services.IApi
 import ru.appdevelopers.githubclient.services.IGitHubApiService
 import toothpick.config.Module
+
 
 class AppModule(context: Context) : Module() {
     init {
@@ -18,9 +20,14 @@ class AppModule(context: Context) : Module() {
     }
 
     private fun bindGitHubApiService() {
+
+        val contextApi = IApi.create()
+
+        bind(IApi::class.java)
+            .toInstance(contextApi)
+
         bind(IGitHubApiService::class.java)
             .to(GitHubApiService::class.java)
             .singleton()
     }
-
 }
