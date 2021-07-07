@@ -19,7 +19,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "API", '"https://github.com/"'
+        }
+
+
         release {
+            buildConfigField "String", "API", '"https://github.com/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
