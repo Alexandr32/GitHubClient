@@ -1,19 +1,21 @@
 package ru.appdevelopers.githubclient
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import ru.appdevelopers.githubclient.di.AppModule
+import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
 import ru.appdevelopers.githubclient.di.DIConfig
-import ru.appdevelopers.githubclient.services.GitHubApiService
-import ru.appdevelopers.githubclient.services.IGitHubApiService
+import ru.appdevelopers.githubclient.presenters.GitHubPresenter
+import ru.appdevelopers.githubclient.views.GitHubClientView
 import toothpick.Toothpick
-import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var gitHubApiService: IGitHubApiService
+class MainActivity : MvpAppCompatActivity(), GitHubClientView {
+
+    @InjectPresenter
+    lateinit var gitHubPresenter: GitHubPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,11 +23,19 @@ class MainActivity : AppCompatActivity() {
 
         addScopeAppModule()
 
-        Log.d("githubclient",gitHubApiService.isWork())
+        button.setOnClickListener {
+            gitHubPresenter.showMessage()
+        }
+
     }
 
     private fun addScopeAppModule() {
         val appScope = Toothpick.openScope(DIConfig.APP_SCOPE)
         Toothpick.inject(this, appScope)
+    }
+
+    override fun showMessage(message: String) {
+        val snackbar = Snackbar.make(constraint_layout, message, Snackbar.LENGTH_LONG)
+        snackbar.show()
     }
 }
