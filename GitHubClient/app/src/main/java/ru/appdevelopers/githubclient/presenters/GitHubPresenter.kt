@@ -4,7 +4,7 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 import ru.appdevelopers.githubclient.di.DIConfig
 import ru.appdevelopers.githubclient.services.IGitHubApiService
-import ru.appdevelopers.githubclient.views.GitHubClientView
+import ru.appdevelopers.githubclient.ui.GitHubClientView
 import toothpick.Toothpick
 import javax.inject.Inject
 
