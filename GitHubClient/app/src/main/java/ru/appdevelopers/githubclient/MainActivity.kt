@@ -9,6 +9,7 @@ import ru.appdevelopers.githubclient.di.DIConfig
 import ru.appdevelopers.githubclient.presenters.GitHubPresenter
 import ru.appdevelopers.githubclient.ui.GitHubClientView
 import ru.appdevelopers.githubclient.ui.auth.AuthFragment
+import ru.appdevelopers.githubclient.ui.repositoriesList.RepositoriesListFragment
 import toothpick.Toothpick
 
 
