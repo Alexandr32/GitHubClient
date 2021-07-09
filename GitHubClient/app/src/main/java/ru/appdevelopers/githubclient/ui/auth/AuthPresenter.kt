@@ -15,7 +15,7 @@ class AuthPresenter @Inject constructor() : MvpPresenter<AuthView>() {
     }
 
     fun showMessage() {
-        viewState?.showMessage("Авторизация")
+        viewState?.showMessage("Вход")
     }
 
 }

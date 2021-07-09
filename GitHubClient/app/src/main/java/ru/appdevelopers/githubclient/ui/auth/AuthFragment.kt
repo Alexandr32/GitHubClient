@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import kotlinx.android.synthetic.main.auth_fragment.*
 import moxy.presenter.InjectPresenter
 import ru.appdevelopers.githubclient.R
 import moxy.MvpAppCompatFragment
@@ -27,7 +28,11 @@ class AuthFragment: MvpAppCompatFragment(), AuthView  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        authPresenter.showMessage()
+
+        buttonEntry.setOnClickListener {
+            authPresenter.showMessage()
+        }
+
     }
 
     override fun showMessage(message: String) {
