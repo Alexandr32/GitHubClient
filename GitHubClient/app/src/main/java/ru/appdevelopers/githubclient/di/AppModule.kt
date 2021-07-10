@@ -10,6 +10,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import ru.appdevelopers.githubclient.googleAuth.AccessTokenMapper
 import ru.appdevelopers.githubclient.googleAuth.IAccessTokenMapper
+import ru.appdevelopers.githubclient.repository.IUserRepository
+import ru.appdevelopers.githubclient.repository.UserRepository
 import ru.appdevelopers.githubclient.services.GitHubApiService
 import ru.appdevelopers.githubclient.services.IApi
 import ru.appdevelopers.githubclient.services.IGitHubApiService
@@ -20,6 +22,7 @@ class AppModule(context: Context) : Module() {
     init {
         bindCicerone()
         bindSharedPreferences(context)
+        bindUserRepository()
         bindAccessTokenMapper()
         bindGoogleSignIn(context)
         bindGitHubApiService()
@@ -59,6 +62,13 @@ class AppModule(context: Context) : Module() {
     private fun bindAccessTokenMapper() {
         bind(IAccessTokenMapper::class.java)
             .to(AccessTokenMapper::class.java)
+            .singleton()
+    }
+
+    private fun bindUserRepository() {
+
+        bind(IUserRepository::class.java)
+            .to(UserRepository::class.java)
             .singleton()
     }
 }
