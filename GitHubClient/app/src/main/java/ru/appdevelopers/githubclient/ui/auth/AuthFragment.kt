@@ -23,9 +23,6 @@ class AuthFragment: MvpAppCompatFragment(), AuthView  {
         const val GOOGLE_SIGN_IN = 9001
     }
 
-    //@Inject
-    //lateinit var googleSignInClient: GoogleSignInClient
-
     @InjectPresenter
     lateinit var authPresenter: AuthPresenter
 

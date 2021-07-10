@@ -8,6 +8,8 @@ import com.github.terrakok.cicerone.Router
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import ru.appdevelopers.githubclient.googleAuth.AccessTokenMapper
+import ru.appdevelopers.githubclient.googleAuth.IAccessTokenMapper
 import ru.appdevelopers.githubclient.services.GitHubApiService
 import ru.appdevelopers.githubclient.services.IApi
 import ru.appdevelopers.githubclient.services.IGitHubApiService
@@ -18,6 +20,7 @@ class AppModule(context: Context) : Module() {
     init {
         bindCicerone()
         bindSharedPreferences(context)
+        bindAccessTokenMapper()
         bindGoogleSignIn(context)
         bindGitHubApiService()
     }
@@ -51,5 +54,11 @@ class AppModule(context: Context) : Module() {
             .build()
         val googleSignInClient = GoogleSignIn.getClient(context, gso)
         bind(GoogleSignInClient::class.java).toInstance(googleSignInClient)
+    }
+
+    private fun bindAccessTokenMapper() {
+        bind(IAccessTokenMapper::class.java)
+            .to(AccessTokenMapper::class.java)
+            .singleton()
     }
 }
