@@ -5,19 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import kotlinx.android.synthetic.main.auth_fragment.*
 import moxy.presenter.InjectPresenter
 import ru.appdevelopers.githubclient.R
-import moxy.MvpAppCompatFragment
 import moxy.presenter.ProvidePresenter
 import ru.appdevelopers.githubclient.di.DIConfig
-import ru.appdevelopers.githubclient.ui.activity.GitHubPresenter
+import ru.appdevelopers.githubclient.googleAuth.GoogleAccessToken
+import ru.appdevelopers.githubclient.ui.base.BaseFragment
 import toothpick.Toothpick
-import javax.inject.Inject
 
-class AuthFragment: MvpAppCompatFragment(), AuthView  {
+
+class AuthFragment: BaseFragment(), IAuthCallback {
 
     companion object {
         const val GOOGLE_SIGN_IN = 9001
@@ -59,8 +57,11 @@ class AuthFragment: MvpAppCompatFragment(), AuthView  {
         }
     }
 
-    override fun showMessage(message: String) {
-        val toast = Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
-        toast.show()
+    override fun onAuthSuccess(accessToken: GoogleAccessToken) {
+        authPresenter.showMessage("Вход выполнен успешно")
+    }
+
+    override fun onAuthError(errorEvent: GoogleAccessToken) {
+        authPresenter.showMessage("Что-то пошло не так")
     }
 }

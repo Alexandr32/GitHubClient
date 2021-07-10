@@ -21,15 +21,15 @@ class AuthPresenter @Inject constructor(
     private val router: Router,
     private val googleSignInClient: GoogleSignInClient,
     private val accessTokenMapper: IAccessTokenMapper
-) : MvpPresenter<AuthView>() {
+) : MvpPresenter<IAuthCallback>() {
 
 
     fun goToListRepository() {
         router.newRootScreen(Screens.repositoriesListPresenter())
     }
 
-    fun showMessage() {
-        viewState?.showMessage("Вход")
+    fun showMessage(message: String) {
+        viewState?.showMessage(message)
     }
 
     fun getGoogleSignInIntent(): Intent {
