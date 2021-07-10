@@ -8,16 +8,20 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.repository_list_fragment.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import ru.appdevelopers.githubclient.R
+import ru.appdevelopers.githubclient.di.DIConfig
+import ru.appdevelopers.githubclient.ui.auth.AuthPresenter
+import toothpick.Toothpick
 
 class RepositoriesListFragment: MvpAppCompatFragment(), RepositoriesListView {
 
-    companion object {
-        fun newInstance() = RepositoriesListFragment()
-    }
-
     @InjectPresenter
     lateinit var repositoriesListPresenter: RepositoriesListPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): RepositoriesListPresenter =
+        Toothpick.openScope(DIConfig.APP_SCOPE).getInstance(RepositoriesListPresenter::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +34,7 @@ class RepositoriesListFragment: MvpAppCompatFragment(), RepositoriesListView {
         super.onViewCreated(view, savedInstanceState)
 
         buttonBack.setOnClickListener {
+            repositoriesListPresenter.back()
             repositoriesListPresenter.showMessage()
         }
 

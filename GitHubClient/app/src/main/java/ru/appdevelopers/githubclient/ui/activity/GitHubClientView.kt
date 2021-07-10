@@ -1,4 +1,4 @@
-package ru.appdevelopers.githubclient.ui
+package ru.appdevelopers.githubclient.ui.activity
 
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle

@@ -9,15 +9,19 @@ import kotlinx.android.synthetic.main.auth_fragment.*
 import moxy.presenter.InjectPresenter
 import ru.appdevelopers.githubclient.R
 import moxy.MvpAppCompatFragment
+import moxy.presenter.ProvidePresenter
+import ru.appdevelopers.githubclient.di.DIConfig
+import ru.appdevelopers.githubclient.ui.activity.GitHubPresenter
+import toothpick.Toothpick
 
 class AuthFragment: MvpAppCompatFragment(), AuthView  {
 
-    companion object {
-        fun newInstance() = AuthFragment()
-    }
-
     @InjectPresenter
     lateinit var authPresenter: AuthPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): AuthPresenter =
+        Toothpick.openScope(DIConfig.APP_SCOPE).getInstance(AuthPresenter::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +34,7 @@ class AuthFragment: MvpAppCompatFragment(), AuthView  {
         super.onViewCreated(view, savedInstanceState)
 
         buttonEntry.setOnClickListener {
-            authPresenter.showMessage()
+            authPresenter.goToListRepository()
         }
 
     }
