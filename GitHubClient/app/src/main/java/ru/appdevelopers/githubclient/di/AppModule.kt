@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import ru.appdevelopers.githubclient.services.GitHubApiService
 import ru.appdevelopers.githubclient.services.IApi
 import ru.appdevelopers.githubclient.services.IGitHubApiService
@@ -15,6 +18,7 @@ class AppModule(context: Context) : Module() {
     init {
         bindCicerone()
         bindSharedPreferences(context)
+        bindGoogleSignIn(context)
         bindGitHubApiService()
     }
 
@@ -39,5 +43,13 @@ class AppModule(context: Context) : Module() {
         val cicerone = Cicerone.create()
         bind(Router::class.java).toInstance(cicerone.router)
         bind(NavigatorHolder::class.java).toInstance(cicerone.getNavigatorHolder())
+    }
+
+    private fun bindGoogleSignIn(context: Context) {
+        val gso = GoogleSignInOptions
+            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .build()
+        val googleSignInClient = GoogleSignIn.getClient(context, gso)
+        bind(GoogleSignInClient::class.java).toInstance(googleSignInClient)
     }
 }
