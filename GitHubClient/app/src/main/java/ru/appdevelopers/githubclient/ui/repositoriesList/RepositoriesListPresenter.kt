@@ -1,5 +1,6 @@
 package ru.appdevelopers.githubclient.ui.repositoriesList
 
+import com.github.terrakok.cicerone.Back
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.Screen
 import moxy.InjectViewState
@@ -16,7 +17,6 @@ class RepositoriesListPresenter @Inject constructor(private val router: Router) 
         viewState?.showMessage("Назад")
     }
 
-    fun back() {
-        router.newRootScreen(Screens.auth())
-    }
+    fun onNextButtonClicked() = router.navigateTo(Screens.repositoriesListPresenter())
+    fun onBackButtonClicked() = router.exit()
 }

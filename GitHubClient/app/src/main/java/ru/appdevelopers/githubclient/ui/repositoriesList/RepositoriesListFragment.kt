@@ -33,9 +33,12 @@ class RepositoriesListFragment: MvpAppCompatFragment(), RepositoriesListView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        buttonNext.setOnClickListener {
+            repositoriesListPresenter.onNextButtonClicked()
+        }
+
         buttonBack.setOnClickListener {
-            repositoriesListPresenter.back()
-            repositoriesListPresenter.showMessage()
+            repositoriesListPresenter.onBackButtonClicked()
         }
 
     }
