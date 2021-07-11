@@ -3,16 +3,12 @@ package ru.appdevelopers.githubclient.ui.activity
 import com.github.terrakok.cicerone.Router
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import ru.appdevelopers.githubclient.di.DIConfig
-import ru.appdevelopers.githubclient.services.IGitHubApiService
 import ru.appdevelopers.githubclient.ui.Screens
-import toothpick.Toothpick
 import javax.inject.Inject
 
 @InjectViewState
 class GitHubPresenter @Inject constructor(
-    private val router: Router,
-    private val gitHubApiService: IGitHubApiService
+    private val router: Router
 ): MvpPresenter<GitHubClientView?>() {
 
     fun coldStart() {
@@ -20,6 +16,6 @@ class GitHubPresenter @Inject constructor(
     }
 
     fun showMessage() {
-        viewState?.showMessage(gitHubApiService.isWork())
+        TODO("Функционал не реализован")
     }
 }

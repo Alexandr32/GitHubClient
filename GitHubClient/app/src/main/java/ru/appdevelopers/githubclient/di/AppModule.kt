@@ -8,13 +8,13 @@ import com.github.terrakok.cicerone.Router
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import ru.appdevelopers.githubclient.gihHubService.GitHubService
 import ru.appdevelopers.githubclient.googleAuth.AccessTokenMapper
 import ru.appdevelopers.githubclient.googleAuth.IAccessTokenMapper
 import ru.appdevelopers.githubclient.repository.IUserRepository
 import ru.appdevelopers.githubclient.repository.UserRepository
-import ru.appdevelopers.githubclient.services.GitHubApiService
-import ru.appdevelopers.githubclient.services.IApi
-import ru.appdevelopers.githubclient.services.IGitHubApiService
+import ru.appdevelopers.githubclient.gihHubService.IApi
+import ru.appdevelopers.githubclient.gihHubService.IGitHubService
 import toothpick.config.Module
 
 
@@ -40,8 +40,8 @@ class AppModule(context: Context) : Module() {
         bind(IApi::class.java)
             .toInstance(contextApi)
 
-        bind(IGitHubApiService::class.java)
-            .to(GitHubApiService::class.java)
+        bind(IGitHubService::class.java)
+            .to(GitHubService::class.java)
             .singleton()
     }
 

@@ -2,6 +2,7 @@ package ru.appdevelopers.githubclient.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,7 @@ import ru.appdevelopers.githubclient.R
 import moxy.presenter.ProvidePresenter
 import ru.appdevelopers.githubclient.di.DIConfig
 import ru.appdevelopers.githubclient.googleAuth.GoogleAccessToken
-import ru.appdevelopers.githubclient.models.AuthErrorResponse
-import ru.appdevelopers.githubclient.models.GoogleAuthErrorResponse
+import ru.appdevelopers.githubclient.models.*
 import ru.appdevelopers.githubclient.ui.base.BaseFragment
 import toothpick.Toothpick
 
@@ -59,7 +59,7 @@ class AuthFragment: BaseFragment(), IAuthCallback {
         }
     }
 
-    override fun onAuthSuccess(accessToken: GoogleAccessToken) {
+    override fun onAuthSuccess(accessToken: AccessToken) {
         authPresenter.showMessage("Вход выполнен успешно")
         authPresenter.goToListRepository()
     }
@@ -67,6 +67,10 @@ class AuthFragment: BaseFragment(), IAuthCallback {
     override fun onAuthError(authErrorResponse: AuthErrorResponse) {
         if(authErrorResponse is GoogleAuthErrorResponse<*>) {
             authPresenter.showMessage("Авторизация через аккаунт гугл не удалась")
+        }
+
+        if (authErrorResponse is GitHubAuthErrorResponse<*>) {
+            authPresenter.showMessage("Авторизация через аккаунт гит не удалась")
         }
     }
 }

@@ -40,7 +40,7 @@ sealed class ApiResponse<T> {
             val body = response.body()
             return when {
                 body == null || response.code() == 204 -> {
-                    ApiSuccessEmptyResponse()
+                    ApiErrorResponse("Пустой ответ")
                 }
                 else -> {
                     val convertBody = toMap.invoke(body)
@@ -65,6 +65,5 @@ sealed class ApiResponse<T> {
 }
 
 class ApiSuccessResponse<T>(val data: T) : ApiResponse<T>()
-class ApiAccessDeniedResponse<T>() : ApiResponse<T>()
-class ApiSuccessEmptyResponse<T> : ApiResponse<T>()
-class ApiErrorResponse<T>(val errorMessage: String) : ApiResponse<T>()
+open class ApiErrorResponse<T>(val errorMessage: String) : ApiResponse<T>()
+class ApiAccessDeniedResponse<T>: ApiErrorResponse<T>("Доступ запрещен")

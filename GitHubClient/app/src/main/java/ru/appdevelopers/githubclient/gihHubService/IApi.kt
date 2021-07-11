@@ -1,12 +1,12 @@
-package ru.appdevelopers.githubclient.services
+package ru.appdevelopers.githubclient.gihHubService
 
-import okhttp3.OkHttpClient
-import retrofit2.Call
+import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.POST
+import retrofit2.http.Query
 import ru.appdevelopers.githubclient.BuildConfig
 
 interface IApi {
@@ -23,6 +23,10 @@ interface IApi {
         }
     }
 
-    @GET("users/{user}/repos")
-    fun listRepos(@Path("user") user: String): Call<List<String>>
+    @POST("login/oauth/access_token")
+    fun auth(
+        @Query("client_id") clientId: String,
+        @Query("client_secret") clientSecret: String,
+        @Query("code") code: String
+    ): Single<Response<GitHubAccessTokenResponse>>
 }

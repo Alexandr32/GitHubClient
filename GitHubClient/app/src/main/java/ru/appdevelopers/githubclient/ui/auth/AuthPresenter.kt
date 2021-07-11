@@ -11,11 +11,13 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import ru.appdevelopers.githubclient.models.User
+import retrofit2.Response
+import ru.appdevelopers.githubclient.gihHubService.GitHubAccessToken
+import ru.appdevelopers.githubclient.gihHubService.GitHubAccessTokenResponse
+import ru.appdevelopers.githubclient.gihHubService.IGitHubService
 import ru.appdevelopers.githubclient.googleAuth.GoogleAccessToken
 import ru.appdevelopers.githubclient.googleAuth.IAccessTokenMapper
-import ru.appdevelopers.githubclient.models.AuthType
-import ru.appdevelopers.githubclient.models.GoogleAuthErrorResponse
+import ru.appdevelopers.githubclient.models.*
 import ru.appdevelopers.githubclient.repository.IUserRepository
 import ru.appdevelopers.githubclient.ui.Screens
 import javax.inject.Inject
@@ -24,10 +26,10 @@ import javax.inject.Inject
 class AuthPresenter @Inject constructor(
     private val router: Router,
     private val googleSignInClient: GoogleSignInClient,
+    private val gitHubService: IGitHubService,
     private val accessTokenMapper: IAccessTokenMapper,
     private val userRepository: IUserRepository
 ) : MvpPresenter<IAuthCallback>() {
-
 
     fun goToListRepository() {
         router.newRootScreen(Screens.repositoriesListPresenter())
@@ -47,10 +49,9 @@ class AuthPresenter @Inject constructor(
 
             task.addOnSuccessListener {
                 emitter.onSuccess(accessTokenMapper.mapFromGoogleToModel(it))
+            }.addOnFailureListener {
+                emitter.onError(it)
             }
-                .addOnFailureListener {
-                    emitter.onError(it)
-                }
         }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -68,11 +69,55 @@ class AuthPresenter @Inject constructor(
 
                 override fun onError(error: Throwable) {
                     Log.e("githubclient", error.message.toString())
-
                     val googleAuthErrorResponse = GoogleAuthErrorResponse(error.message.toString())
-                    viewState.onAuthError(googleAuthErrorResponse)
+                    onAuthError(googleAuthErrorResponse)
                 }
             })
+    }
+
+    fun gitHubAuth(code: String) {
+        gitHubService.auth(code)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { viewState.showLockUiProgress() }
+            .doFinally { viewState.hideProgress() }
+            .subscribe(object : DisposableSingleObserver<ApiResponse<GitHubAccessToken>>() {
+                override fun onSuccess(response: ApiResponse<GitHubAccessToken>) {
+
+                    when (response) {
+                        is ApiSuccessResponse -> {
+
+                            // Вход успешен
+                            val user = User(AuthType.GIT_HUB, response.data.username)
+                            userRepository.saveAuth(user)
+
+                            viewState.onAuthSuccess(response.data)
+
+                        }
+                        is ApiAccessDeniedResponse -> {
+                            onGitHubAuthError("Доступ запрещен")
+                        }
+                        is ApiErrorResponse-> {
+                            onGitHubAuthError(response.errorMessage)
+                        }
+                    }
+                }
+
+                override fun onError(error: Throwable) {
+                    Log.e("githubclient", error.message.toString())
+
+                    onGitHubAuthError(error.message.toString())
+                }
+            })
+    }
+
+    private fun onGitHubAuthError(errorMessage: String) {
+        val gitHubErrorResponse = GitHubAuthErrorResponse(errorMessage)
+        onAuthError(gitHubErrorResponse)
+    }
+
+    private fun onAuthError(authErrorResponse: AuthErrorResponse) {
+        viewState.onAuthError(authErrorResponse)
     }
 
 }
