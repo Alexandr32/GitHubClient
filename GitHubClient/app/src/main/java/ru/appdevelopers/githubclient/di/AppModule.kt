@@ -22,7 +22,7 @@ class AppModule(context: Context) : Module() {
     init {
         bindCicerone()
         bindSharedPreferences(context)
-        bindUserRepository()
+        bindUserRepository(context)
         bindAccessTokenMapper()
         bindGoogleSignIn(context)
         bindGitHubApiService()
@@ -65,10 +65,9 @@ class AppModule(context: Context) : Module() {
             .singleton()
     }
 
-    private fun bindUserRepository() {
-
+    private fun bindUserRepository(context: Context) {
+        val userRepository = UserRepository(context)
         bind(IUserRepository::class.java)
-            .to(UserRepository::class.java)
-            .singleton()
+            .toInstance(userRepository)
     }
 }
