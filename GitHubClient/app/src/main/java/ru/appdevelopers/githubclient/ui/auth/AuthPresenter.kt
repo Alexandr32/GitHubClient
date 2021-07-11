@@ -7,6 +7,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
@@ -20,6 +22,7 @@ import ru.appdevelopers.githubclient.googleAuth.IAccessTokenMapper
 import ru.appdevelopers.githubclient.models.*
 import ru.appdevelopers.githubclient.repository.IUserRepository
 import ru.appdevelopers.githubclient.ui.Screens
+import ru.appdevelopers.githubclient.ui.base.BasePresenter
 import javax.inject.Inject
 
 @InjectViewState
@@ -29,7 +32,7 @@ class AuthPresenter @Inject constructor(
     private val gitHubService: IGitHubService,
     private val accessTokenMapper: IAccessTokenMapper,
     private val userRepository: IUserRepository
-) : MvpPresenter<IAuthCallback>() {
+) : BasePresenter<IAuthCallback>() {
 
     fun goToListRepository() {
         router.newRootScreen(Screens.repositoriesListPresenter())
@@ -73,6 +76,7 @@ class AuthPresenter @Inject constructor(
                     onAuthError(googleAuthErrorResponse)
                 }
             })
+            .disposeLater()
     }
 
     fun gitHubAuth(code: String) {
@@ -81,7 +85,7 @@ class AuthPresenter @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showLockUiProgress() }
             .doFinally { viewState.hideProgress() }
-            .subscribe(object : DisposableSingleObserver<ApiResponse<GitHubAccessToken>>() {
+            .subscribeWith(object : DisposableSingleObserver<ApiResponse<GitHubAccessToken>>() {
                 override fun onSuccess(response: ApiResponse<GitHubAccessToken>) {
 
                     when (response) {
@@ -109,6 +113,7 @@ class AuthPresenter @Inject constructor(
                     onGitHubAuthError(error.message.toString())
                 }
             })
+            .disposeLater()
     }
 
     private fun onGitHubAuthError(errorMessage: String) {
