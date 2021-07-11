@@ -58,8 +58,10 @@ class AuthPresenter @Inject constructor(
             .doFinally { viewState.hideProgress() }
             .subscribeWith(object : DisposableSingleObserver<GoogleAccessToken>() {
                 override fun onSuccess(value: GoogleAccessToken) {
+
                     val user = User(AuthType.GOOGLE, value.username)
                     userRepository.saveAuth(user)
+
                     viewState.onAuthSuccess(value)
 
                 }

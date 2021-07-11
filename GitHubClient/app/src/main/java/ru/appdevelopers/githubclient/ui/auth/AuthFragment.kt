@@ -61,6 +61,7 @@ class AuthFragment: BaseFragment(), IAuthCallback {
 
     override fun onAuthSuccess(accessToken: GoogleAccessToken) {
         authPresenter.showMessage("Вход выполнен успешно")
+        authPresenter.goToListRepository()
     }
 
     override fun onAuthError(authErrorResponse: AuthErrorResponse) {
