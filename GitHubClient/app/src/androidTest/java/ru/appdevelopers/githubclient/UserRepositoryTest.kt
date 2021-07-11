@@ -6,8 +6,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.appdevelopers.githubclient.core.AuthType
-import ru.appdevelopers.githubclient.core.User
+import ru.appdevelopers.githubclient.model.AuthType
+import ru.appdevelopers.githubclient.models.User
 import ru.appdevelopers.githubclient.repository.UserRepository
 
 @RunWith(AndroidJUnit4::class)

@@ -3,8 +3,8 @@ package ru.appdevelopers.githubclient.repository
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-import ru.appdevelopers.githubclient.core.User
-import ru.appdevelopers.githubclient.core.toAuthType
+import ru.appdevelopers.githubclient.models.User
+import ru.appdevelopers.githubclient.models.toAuthType
 import javax.inject.Inject
 
 interface IUserRepository {
