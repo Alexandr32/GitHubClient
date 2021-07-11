@@ -1,6 +1,7 @@
 package ru.appdevelopers.githubclient.ui.auth
 
 import android.content.Intent
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -10,9 +11,12 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import ru.appdevelopers.githubclient.model.ErrorEvent
+import ru.appdevelopers.githubclient.models.User
 import ru.appdevelopers.githubclient.googleAuth.GoogleAccessToken
 import ru.appdevelopers.githubclient.googleAuth.IAccessTokenMapper
+import ru.appdevelopers.githubclient.models.AuthType
+import ru.appdevelopers.githubclient.models.GoogleAuthErrorResponse
+import ru.appdevelopers.githubclient.repository.IUserRepository
 import ru.appdevelopers.githubclient.ui.Screens
 import javax.inject.Inject
 
@@ -20,7 +24,8 @@ import javax.inject.Inject
 class AuthPresenter @Inject constructor(
     private val router: Router,
     private val googleSignInClient: GoogleSignInClient,
-    private val accessTokenMapper: IAccessTokenMapper
+    private val accessTokenMapper: IAccessTokenMapper,
+    private val userRepository: IUserRepository
 ) : MvpPresenter<IAuthCallback>() {
 
 
@@ -52,13 +57,18 @@ class AuthPresenter @Inject constructor(
             .doOnSubscribe { viewState.showLockUiProgress() }
             .doFinally { viewState.hideProgress() }
             .subscribeWith(object : DisposableSingleObserver<GoogleAccessToken>() {
-                override fun onSuccess(t: GoogleAccessToken) {
-                    viewState.onAuthSuccess(t)
+                override fun onSuccess(value: GoogleAccessToken) {
+                    val user = User(AuthType.GOOGLE, value.username)
+                    userRepository.saveAuth(user)
+                    viewState.onAuthSuccess(value)
 
                 }
 
-                override fun onError(e: Throwable) {
-                    viewState.onAuthError(ErrorEvent(e.message.toString()))
+                override fun onError(error: Throwable) {
+                    Log.e("githubclient", error.message.toString())
+
+                    val googleAuthErrorResponse = GoogleAuthErrorResponse(error.message.toString())
+                    viewState.onAuthError(googleAuthErrorResponse)
                 }
             })
     }

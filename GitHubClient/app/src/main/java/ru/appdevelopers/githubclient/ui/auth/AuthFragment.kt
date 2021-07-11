@@ -11,6 +11,8 @@ import ru.appdevelopers.githubclient.R
 import moxy.presenter.ProvidePresenter
 import ru.appdevelopers.githubclient.di.DIConfig
 import ru.appdevelopers.githubclient.googleAuth.GoogleAccessToken
+import ru.appdevelopers.githubclient.models.AuthErrorResponse
+import ru.appdevelopers.githubclient.models.GoogleAuthErrorResponse
 import ru.appdevelopers.githubclient.ui.base.BaseFragment
 import toothpick.Toothpick
 
@@ -61,7 +63,9 @@ class AuthFragment: BaseFragment(), IAuthCallback {
         authPresenter.showMessage("Вход выполнен успешно")
     }
 
-    override fun onAuthError(errorEvent: GoogleAccessToken) {
-        authPresenter.showMessage("Что-то пошло не так")
+    override fun onAuthError(authErrorResponse: AuthErrorResponse) {
+        if(authErrorResponse is GoogleAuthErrorResponse<*>) {
+            authPresenter.showMessage("Авторизация через аккаунт гугл не удалась")
+        }
     }
 }

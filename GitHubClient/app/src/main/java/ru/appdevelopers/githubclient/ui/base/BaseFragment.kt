@@ -2,7 +2,7 @@ package ru.appdevelopers.githubclient.ui.base
 
 import android.widget.Toast
 import moxy.MvpAppCompatFragment
-import ru.appdevelopers.githubclient.model.IBaseCallback
+import ru.appdevelopers.githubclient.models.IBaseCallback
 
 abstract class BaseFragment: MvpAppCompatFragment(), IBaseCallback {
     override fun showProgress() {

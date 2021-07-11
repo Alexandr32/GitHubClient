@@ -1,9 +1,9 @@
 package ru.appdevelopers.githubclient.ui.auth
 
-import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 import ru.appdevelopers.githubclient.googleAuth.GoogleAccessToken
-import ru.appdevelopers.githubclient.model.IBaseCallback
+import ru.appdevelopers.githubclient.models.AuthErrorResponse
+import ru.appdevelopers.githubclient.models.IBaseCallback
 
 interface IAuthCallback : IBaseCallback {
     /**
@@ -16,5 +16,5 @@ interface IAuthCallback : IBaseCallback {
      * Ошибка входа
      */
     @AddToEndSingle
-    fun onAuthError(errorEvent: GoogleAccessToken)
+    fun onAuthError(authErrorResponse: AuthErrorResponse)
 }
