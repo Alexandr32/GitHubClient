@@ -8,13 +8,13 @@ import com.github.terrakok.cicerone.Router
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import ru.appdevelopers.githubclient.data.gihHubService.GitHubService
-import ru.appdevelopers.githubclient.data.googleAuth.AccessTokenMapper
-import ru.appdevelopers.githubclient.data.repository.IUserRepository
-import ru.appdevelopers.githubclient.data.repository.UserRepository
-import ru.appdevelopers.githubclient.data.gihHubService.IApi
-import ru.appdevelopers.githubclient.domain.gitHub.IGitHubService
-import ru.appdevelopers.githubclient.domain.googleAuth.IAccessTokenMapper
+import ru.appdevelopers.githubservice.GitHubService
+import ru.appdevelopers.googleauth.AccessTokenMapper
+import ru.appdevelopers.dal.repository.IUserRepository
+import ru.appdevelopers.dal.repository.UserRepository
+import ru.appdevelopers.githubservice.IApi
+import ru.appdevelopers.domain.gitHub.IGitHubService
+import ru.appdevelopers.domain.googleAuth.IAccessTokenMapper
 import toothpick.config.Module
 
 

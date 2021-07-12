@@ -9,10 +9,10 @@ import kotlinx.android.synthetic.main.auth_fragment.*
 import moxy.presenter.InjectPresenter
 import ru.appdevelopers.githubclient.R
 import moxy.presenter.ProvidePresenter
-import ru.appdevelopers.githubclient.domain.models.AccessToken
-import ru.appdevelopers.githubclient.domain.models.AuthErrorResponse
-import ru.appdevelopers.githubclient.domain.models.GitHubAuthErrorResponse
-import ru.appdevelopers.githubclient.domain.models.GoogleAuthErrorResponse
+import ru.appdevelopers.domain.models.AccessToken
+import ru.appdevelopers.domain.models.AuthErrorResponse
+import ru.appdevelopers.domain.models.GitHubAuthErrorResponse
+import ru.appdevelopers.domain.models.GoogleAuthErrorResponse
 import ru.appdevelopers.githubclient.di.DIConfig
 import ru.appdevelopers.githubclient.ui.base.BaseFragment
 import toothpick.Toothpick
