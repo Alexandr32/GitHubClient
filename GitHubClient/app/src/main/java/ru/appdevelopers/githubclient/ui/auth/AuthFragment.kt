@@ -13,7 +13,6 @@ import ru.appdevelopers.domain.models.AccessToken
 import ru.appdevelopers.domain.models.AuthErrorResponse
 import ru.appdevelopers.domain.models.GitHubAuthErrorResponse
 import ru.appdevelopers.domain.models.GoogleAuthErrorResponse
-import ru.appdevelopers.githubclient.di.DIConfig
 import ru.appdevelopers.githubclient.ui.base.BaseFragment
 import toothpick.Toothpick
 
@@ -29,7 +28,7 @@ class AuthFragment: BaseFragment(), IAuthCallback {
 
     @ProvidePresenter
     fun providePresenter(): AuthPresenter =
-        Toothpick.openScope(DIConfig.APP_SCOPE).getInstance(AuthPresenter::class.java)
+        Toothpick.openScope(ru.appdevelopers.di.DIConfig.APP_SCOPE).getInstance(AuthPresenter::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

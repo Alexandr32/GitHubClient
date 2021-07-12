@@ -1,9 +1,8 @@
 rootProject.name = "GitHubClient"
 include ':library'
-include ':app:dal'
-
-include ':app:domain'
-include ':app:gitHubService'
-
 include ':app'
+include ':app:domain'
+include ':app:dal'
+include ':app:gitHubService'
 include ':app:googleAuth'
+include ':app:di'

@@ -10,8 +10,7 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.appdevelopers.githubclient.R
-import ru.appdevelopers.githubclient.di.DIConfig
-import ru.appdevelopers.githubclient.ui.auth.AuthPresenter
+import ru.appdevelopers.di.DIConfig
 import toothpick.Toothpick
 
 class RepositoriesListFragment: MvpAppCompatFragment(), RepositoriesListView {
@@ -21,7 +20,7 @@ class RepositoriesListFragment: MvpAppCompatFragment(), RepositoriesListView {
 
     @ProvidePresenter
     fun providePresenter(): RepositoriesListPresenter =
-        Toothpick.openScope(DIConfig.APP_SCOPE).getInstance(RepositoriesListPresenter::class.java)
+        Toothpick.openScope(ru.appdevelopers.di.DIConfig.APP_SCOPE).getInstance(RepositoriesListPresenter::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

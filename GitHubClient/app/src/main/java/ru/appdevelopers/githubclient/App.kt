@@ -1,8 +1,8 @@
 package ru.appdevelopers.githubclient
 
 import android.app.Application
-import ru.appdevelopers.githubclient.di.AppModule
-import ru.appdevelopers.githubclient.di.DIConfig
+import ru.appdevelopers.di.AppModule
+import ru.appdevelopers.di.DIConfig
 import toothpick.Toothpick
 
 class App : Application() {
@@ -12,7 +12,7 @@ class App : Application() {
     }
 
     private fun addScopeAppModule() {
-        val appScope = Toothpick.openScope(DIConfig.APP_SCOPE)
-        appScope.installModules(AppModule(applicationContext))
+        val appScope = Toothpick.openScope(ru.appdevelopers.di.DIConfig.APP_SCOPE)
+        appScope.installModules(ru.appdevelopers.di.AppModule(applicationContext))
     }
 }

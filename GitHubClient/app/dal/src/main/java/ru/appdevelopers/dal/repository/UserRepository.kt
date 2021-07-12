@@ -5,12 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import ru.appdevelopers.domain.models.User
 import ru.appdevelopers.domain.models.toAuthType
+import ru.appdevelopers.domain.repository.IUserRepository
 import javax.inject.Inject
-
-interface IUserRepository {
-    fun saveAuth(user: User)
-    fun getAuth(): User?
-}
 
 class UserRepository @Inject constructor(context: Context): IUserRepository {
 

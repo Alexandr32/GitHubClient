@@ -1,4 +1,4 @@
-package ru.appdevelopers.githubclient.di
+package ru.appdevelopers.di
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -8,13 +8,13 @@ import com.github.terrakok.cicerone.Router
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import ru.appdevelopers.githubservice.GitHubService
-import ru.appdevelopers.googleauth.AccessTokenMapper
-import ru.appdevelopers.dal.repository.IUserRepository
 import ru.appdevelopers.dal.repository.UserRepository
-import ru.appdevelopers.githubservice.IApi
 import ru.appdevelopers.domain.gitHub.IGitHubService
 import ru.appdevelopers.domain.googleAuth.IAccessTokenMapper
+import ru.appdevelopers.domain.repository.IUserRepository
+import ru.appdevelopers.githubservice.GitHubService
+import ru.appdevelopers.githubservice.IApi
+import ru.appdevelopers.googleauth.AccessTokenMapper
 import toothpick.config.Module
 
 
