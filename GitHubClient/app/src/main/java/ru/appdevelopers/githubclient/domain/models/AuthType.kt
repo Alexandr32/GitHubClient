@@ -1,4 +1,4 @@
-package ru.appdevelopers.githubclient.models
+package ru.appdevelopers.githubclient.domain.models
 
 
 enum class AuthType(val value: Int) {

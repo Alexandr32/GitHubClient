@@ -1,10 +1,10 @@
-package ru.appdevelopers.githubclient.repository
+package ru.appdevelopers.githubclient.data.repository
 
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-import ru.appdevelopers.githubclient.models.User
-import ru.appdevelopers.githubclient.models.toAuthType
+import ru.appdevelopers.githubclient.domain.models.User
+import ru.appdevelopers.githubclient.domain.models.toAuthType
 import javax.inject.Inject
 
 interface IUserRepository {

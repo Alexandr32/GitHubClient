@@ -7,8 +7,8 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.appdevelopers.githubclient.model.AuthType
-import ru.appdevelopers.githubclient.models.User
-import ru.appdevelopers.githubclient.repository.UserRepository
+import ru.appdevelopers.githubclient.domain.models.User
+import ru.appdevelopers.githubclient.data.repository.UserRepository
 
 @RunWith(AndroidJUnit4::class)
 class UserRepositoryTest {

@@ -1,10 +1,9 @@
 package ru.appdevelopers.githubclient.ui.auth
 
 import moxy.viewstate.strategy.alias.AddToEndSingle
-import ru.appdevelopers.githubclient.googleAuth.GoogleAccessToken
-import ru.appdevelopers.githubclient.models.AccessToken
-import ru.appdevelopers.githubclient.models.AuthErrorResponse
-import ru.appdevelopers.githubclient.models.IBaseCallback
+import ru.appdevelopers.githubclient.domain.models.AccessToken
+import ru.appdevelopers.githubclient.domain.models.AuthErrorResponse
+import ru.appdevelopers.githubclient.ui.IBaseCallback
 
 interface IAuthCallback : IBaseCallback {
     /**

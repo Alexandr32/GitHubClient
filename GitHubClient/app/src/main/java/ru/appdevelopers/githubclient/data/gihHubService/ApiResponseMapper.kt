@@ -1,14 +1,14 @@
-package ru.appdevelopers.githubclient.models
+package ru.appdevelopers.githubclient.data.gihHubService
 
 import retrofit2.Response
+import ru.appdevelopers.githubclient.domain.models.ApiAccessDeniedResponse
+import ru.appdevelopers.githubclient.domain.models.ApiErrorResponse
+import ru.appdevelopers.githubclient.domain.models.ApiResponse
+import ru.appdevelopers.githubclient.domain.models.ApiSuccessResponse
 
-/**
- * Класс для мапинга полученных данных и обработки ответов апи
- */
-sealed class ApiResponse<T> {
+class ApiResponseMapper {
     companion object {
-
-        fun <T, V> create(response: Response<T>, toMap: (T) -> V): ApiResponse<V> {
+        fun <T, V> map(response: Response<T>, toMap: (T) -> V): ApiResponse<V> {
 
             return if (response.isSuccessful) {
                 // isSuccessful - code 200..300
@@ -26,8 +26,8 @@ sealed class ApiResponse<T> {
             }
         }
 
-        fun <T> create(response: Response<T>): ApiResponse<T> {
-            return create(response) { it }
+        fun <T> map(response: Response<T>): ApiResponse<T> {
+            return map(response) { it }
         }
 
         /**
@@ -63,7 +63,3 @@ sealed class ApiResponse<T> {
         }
     }
 }
-
-class ApiSuccessResponse<T>(val data: T) : ApiResponse<T>()
-open class ApiErrorResponse<T>(val errorMessage: String) : ApiResponse<T>()
-class ApiAccessDeniedResponse<T>: ApiErrorResponse<T>("Доступ запрещен")

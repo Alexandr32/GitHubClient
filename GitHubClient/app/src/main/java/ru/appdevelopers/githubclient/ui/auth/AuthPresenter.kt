@@ -7,20 +7,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
-import moxy.MvpPresenter
-import retrofit2.Response
-import ru.appdevelopers.githubclient.gihHubService.GitHubAccessToken
-import ru.appdevelopers.githubclient.gihHubService.GitHubAccessTokenResponse
-import ru.appdevelopers.githubclient.gihHubService.IGitHubService
-import ru.appdevelopers.githubclient.googleAuth.GoogleAccessToken
-import ru.appdevelopers.githubclient.googleAuth.IAccessTokenMapper
-import ru.appdevelopers.githubclient.models.*
-import ru.appdevelopers.githubclient.repository.IUserRepository
+import ru.appdevelopers.githubclient.domain.models.*
+import ru.appdevelopers.githubclient.data.repository.IUserRepository
+import ru.appdevelopers.githubclient.domain.gitHub.IGitHubService
+import ru.appdevelopers.githubclient.domain.gitHub.model.GitHubAccessToken
+import ru.appdevelopers.githubclient.domain.googleAuth.IAccessTokenMapper
+import ru.appdevelopers.githubclient.domain.googleAuth.model.GoogleAccessToken
 import ru.appdevelopers.githubclient.ui.Screens
 import ru.appdevelopers.githubclient.ui.base.BasePresenter
 import javax.inject.Inject
@@ -101,7 +96,7 @@ class AuthPresenter @Inject constructor(
                         is ApiAccessDeniedResponse -> {
                             onGitHubAuthError("Доступ запрещен")
                         }
-                        is ApiErrorResponse-> {
+                        is ApiErrorResponse -> {
                             onGitHubAuthError(response.errorMessage)
                         }
                     }

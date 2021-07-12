@@ -1,4 +1,4 @@
-package ru.appdevelopers.githubclient.gihHubService
+package ru.appdevelopers.githubclient.data.gihHubService
 
 import io.reactivex.Single
 import retrofit2.Response
@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.POST
 import retrofit2.http.Query
 import ru.appdevelopers.githubclient.BuildConfig
+import ru.appdevelopers.githubclient.domain.gitHub.model.GitHubAccessTokenResponse
 
 interface IApi {
 
