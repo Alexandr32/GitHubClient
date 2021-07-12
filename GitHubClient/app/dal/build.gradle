@@ -43,8 +43,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // di
-    implementation 'com.github.stephanenicolas.toothpick:ktp:3.0.0'
-    kapt 'com.github.stephanenicolas.toothpick:toothpick-compiler:3.0.0'
+    implementation deps.toothpick
+    kapt deps.kaptToothpick
 
     implementation project(':app:domain')
 }

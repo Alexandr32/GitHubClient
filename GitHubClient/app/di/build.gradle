@@ -41,13 +41,13 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    implementation deps.rxjava2
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 
     // di
-    implementation 'com.github.stephanenicolas.toothpick:ktp:3.0.0'
-    kapt 'com.github.stephanenicolas.toothpick:toothpick-compiler:3.0.0'
+    implementation deps.toothpick
+    kapt deps.kaptToothpick
 
     // Cicerone (Navigation pattern)
     implementation("com.github.terrakok:cicerone:7.0")
