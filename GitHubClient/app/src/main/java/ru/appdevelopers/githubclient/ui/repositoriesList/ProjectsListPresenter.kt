@@ -7,12 +7,12 @@ import ru.appdevelopers.githubclient.ui.Screens
 import javax.inject.Inject
 
 @InjectViewState
-class RepositoriesListPresenter @Inject constructor(private val router: Router) : MvpPresenter<RepositoriesListView>() {
+class ProjectsListPresenter @Inject constructor(private val router: Router) : MvpPresenter<RepositoriesListView>() {
 
     fun showMessage() {
         viewState?.showMessage("Назад")
     }
 
-    fun onNextButtonClicked() = router.navigateTo(Screens.repositoriesListPresenter())
+    fun onNextButtonClicked() = router.navigateTo(Screens.repositoriesList())
     fun onBackButtonClicked() = router.exit()
 }

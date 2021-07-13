@@ -30,7 +30,7 @@ class AuthPresenter @Inject constructor(
 ) : BasePresenter<IAuthCallback>() {
 
     fun goToListRepository() {
-        router.newRootScreen(Screens.repositoriesListPresenter())
+        router.newRootScreen(Screens.repositoriesList())
     }
 
     fun showMessage(message: String) {

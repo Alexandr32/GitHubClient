@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.repository_list_fragment.*
+import kotlinx.android.synthetic.main.projects_list_fragment.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -13,31 +13,31 @@ import ru.appdevelopers.githubclient.R
 import ru.appdevelopers.di.DIConfig
 import toothpick.Toothpick
 
-class RepositoriesListFragment: MvpAppCompatFragment(), RepositoriesListView {
+class ProjectsListFragment: MvpAppCompatFragment(), RepositoriesListView {
 
     @InjectPresenter
-    lateinit var repositoriesListPresenter: RepositoriesListPresenter
+    lateinit var projectsListPresenter: ProjectsListPresenter
 
     @ProvidePresenter
-    fun providePresenter(): RepositoriesListPresenter =
-        Toothpick.openScope(ru.appdevelopers.di.DIConfig.APP_SCOPE).getInstance(RepositoriesListPresenter::class.java)
+    fun providePresenter(): ProjectsListPresenter =
+        Toothpick.openScope(DIConfig.APP_SCOPE).getInstance(ProjectsListPresenter::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.repository_list_fragment, container, false)
+        return inflater.inflate(R.layout.projects_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         buttonNext.setOnClickListener {
-            repositoriesListPresenter.onNextButtonClicked()
+            projectsListPresenter.onNextButtonClicked()
         }
 
         buttonBack.setOnClickListener {
-            repositoriesListPresenter.onBackButtonClicked()
+            projectsListPresenter.onBackButtonClicked()
         }
 
     }
