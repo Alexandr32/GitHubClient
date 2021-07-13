@@ -6,6 +6,9 @@ import ru.appdevelopers.domain.models.ApiErrorResponse
 import ru.appdevelopers.domain.models.ApiResponse
 import ru.appdevelopers.domain.models.ApiSuccessResponse
 
+/**
+ * Класс для мапинга полученных данных и обработки ответов апи
+ */
 class ApiResponseMapper {
     companion object {
         fun <T, V> map(response: Response<T>, toMap: (T) -> V): ApiResponse<V> {

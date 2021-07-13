@@ -1,7 +1,7 @@
 package ru.appdevelopers.domain.models
 
 /**
- * Класс для мапинга полученных данных и обработки ответов апи
+ * Обертка для ответа апи
  */
 sealed class ApiResponse<T>
 class ApiSuccessResponse<T>(val data: T) : ApiResponse<T>()
